@@ -1,6 +1,7 @@
 package com.codecool.web.filter;
 
 import com.codecool.web.model.User;
+import com.codecool.web.service.exceptions.BadLoginException;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -23,7 +24,7 @@ public final class SessionFilter implements Filter {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         if (user == null) {
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            resp.sendRedirect("index.jsp");
         } else {
             chain.doFilter(req, resp);
         }
